@@ -1,0 +1,12 @@
+# Root IDE config
+.idea/
+.vscode/
+*.swp
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Any temporary scripts
+*.ps1
+tree.txt

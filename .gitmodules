@@ -1,0 +1,6 @@
+[submodule "e-commerce-backend"]
+	path = e-commerce-backend
+	url = https://github.com/TranTrungVietHoang/e-commerce-backend.git
+[submodule "e-commerce-frontend"]
+	path = e-commerce-frontend
+	url = https://github.com/TranTrungVietHoang/e-commerce-frontend.git
