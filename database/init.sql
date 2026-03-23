@@ -308,3 +308,56 @@ CREATE TABLE notifications (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE NONCLUSTERED INDEX IDX_Notifications_UserId ON notifications(user_id);
+
+-- ==========================================
+-- ADVANCED FEATURES (TÍNH NĂNG CAO)
+-- ==========================================
+
+-- Bảng FlashSales (Đợt giảm giá chớp nhoáng)
+CREATE TABLE flash_sales (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    name NVARCHAR(255) NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    status VARCHAR(20) DEFAULT 'INACTIVE', -- ACTIVE, INACTIVE, ENDED
+    created_at DATETIME DEFAULT GETDATE()
+);
+
+-- Bảng FlashSaleProducts (Sản phẩm trong đợt Flash Sale)
+CREATE TABLE flash_sale_products (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    flash_sale_id INT NOT NULL,
+    product_id BIGINT NOT NULL,
+    sale_price DECIMAL(18,2) NOT NULL,
+    stock_limit INT NOT NULL, 
+    sold_count INT DEFAULT 0,
+    FOREIGN KEY (flash_sale_id) REFERENCES flash_sales(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+-- Bảng ChatMessages (Lịch sử chat Buyer - Seller)
+CREATE TABLE chat_messages (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    sender_id BIGINT NOT NULL,
+    receiver_id BIGINT NOT NULL,
+    shop_id BIGINT NULL,
+    message NVARCHAR(MAX) NOT NULL,
+    is_read BIT DEFAULT 0,
+    created_at DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (sender_id) REFERENCES users(id),
+    FOREIGN KEY (receiver_id) REFERENCES users(id),
+    FOREIGN KEY (shop_id) REFERENCES shops(id)
+);
+CREATE NONCLUSTERED INDEX IDX_Chat_Sender ON chat_messages(sender_id);
+CREATE NONCLUSTERED INDEX IDX_Chat_Receiver ON chat_messages(receiver_id);
+
+-- Bảng VerificationTokens (Xác thực Email / Quên mật khẩu)
+CREATE TABLE verification_tokens (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    type VARCHAR(50) NOT NULL, -- EMAIL_VERIFY, PASSWORD_RESET
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
