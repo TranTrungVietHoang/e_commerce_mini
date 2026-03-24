@@ -84,4 +84,4 @@ Tài liệu này tập trung hoàn toàn vào **Nghiệp vụ (Logic)** và các
 
 ---
 
-> **KẾT LUẬN:** Đây là bộ quy tắc bao quét mọi góc khuất của hệ thống. 7 thành viên dựa vào bảng này để code logic BE và FE, đảm bảo hệ thống không bao giờ bị "crash" do dữ liệu sai. 🚀
+> **KẾT LUẬN:** Đây là bộ quy tắc bao quát mọi góc khuất của hệ thống. 7 thành viên dựa vào bảng này để code logic BE và FE, đảm bảo hệ thống không bao giờ bị "crash" do dữ liệu sai. 🚀

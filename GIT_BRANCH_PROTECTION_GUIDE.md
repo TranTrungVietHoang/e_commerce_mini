@@ -34,21 +34,26 @@ cd ..
 
 ## BƯỚC 2: CẤU HÌNH LUẬT TRÊN GITHUB (QUAN TRỌNG)
 
-Bạn phải thực hiện việc này trên giao diện Web của GitHub cho **cả 3 Repository** (Root, BE, FE).
+Bạn phải thực hiện việc này trên giao diện Web của **GitHub** -> **Settings** -> **Rules** -> **Rulesets** cho **cả 3 Repository** (Root, BE, FE).
 
 ### 2.1. Cấu hình nhánh `develop` (Yêu cầu Review)
-1. Vào **Settings** -> **Branches**.
-2. Tại mục **Branch protection rules**, bấm **Add rule**.
-3. **Branch name pattern:** Gõ `develop`.
-4. Tích chọn **Require a pull request before merging**.
-5. Tích chọn **Require approvals** và chọn số lượng là `1` (Chính là bạn - Nhóm trưởng).
-6. Tích chọn **Restrict who can push to matching branches** (Chỉ cho phép Nhóm trưởng).
+1. Bấm **New branch ruleset**, đặt tên `protect_develop`.
+2. **Target branches:** Thêm mục tiêu (*Add target*) -> Chọn *Include by pattern* -> Gõ `develop`.
+3. **Bypass list:** Thêm ngoại lệ (*Add bypass*) -> Chọn *Repository admin* (Chính là bạn).
+4. **Rules:**
+   - Tích chọn **Restrict deletions** (Không ai được xóa nhánh).
+   - Tích chọn **Require a pull request before merging** -> Chọn *Required approvals = 1*.
+   - Tích chọn **Block force pushes**.
 
-### 2.2. Cấu hình nhánh `main` (Khóa cứng)
-1. Bấm **Add rule** mới.
-2. **Branch name pattern:** Gõ `main`.
-3. Tích chọn **Lock branch** (Read-only) HOẶC Tích chọn **Restrict who can push to matching branches** và chỉ điền tên của bạn.
-4. Điều này đảm bảo không ai được phép đẩy code lung tung lên `main` trừ khi bạn gộp code từ `develop` lên.
+### 2.2. Cấu hình nhánh `main` (Khóa cứng chuyên nghiệp)
+1. Bấm **New branch ruleset**, đặt tên `protect_main`.
+2. **Target branches:** Chọn *Include by pattern* -> Gõ `main`.
+3. **Bypass list:** Thêm ngoại lệ (*Add bypass*) -> Chọn *Repository admin* (Chính là bạn). Đây là chìa khóa để chỉ bạn thao tác được.
+4. **Rules:**
+   - Tích chọn **Restrict updates** (Khóa toàn bộ việc Push/Merge từ các thành viên khác).
+   - Tích chọn **Restrict deletions**.
+   - Tích chọn **Require a pull request before merging**.
+   - Tích chọn **Block force pushes**.
 
 ---
 

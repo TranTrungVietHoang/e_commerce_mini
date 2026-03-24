@@ -72,7 +72,7 @@ Bản danh sách này liệt kê **cụ thể từng chức năng**, **mô tả 
 *   **FE:** UI Trang chủ, Menu danh mục, Sidebar lọc sản phẩm.
 
 **2. Tìm kiếm thông minh (Search):**
-*   **Mô tả:** Tìm theo từ khóa, gợi ý tìm kiếm (Autocomplete) ,các phương thức tìm kiếm nâng cao, lọc theo giá và đánh giá.
+*   **Mô tả:** Tìm theo từ khóa, gợi ý tìm kiếm (Autocomplete), các phương thức tìm kiếm nâng cao, lọc theo giá và đánh giá.
 *   **BE:** API Search đa tiêu chí (Custom JPA Query/Specification).
 *   **FE:** Trang kết quả tìm kiếm với bộ lọc (Filter) bên trái.
 
