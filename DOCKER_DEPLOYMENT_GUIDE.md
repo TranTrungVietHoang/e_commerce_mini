@@ -85,18 +85,23 @@ Docker Image giống như một bản cài đặt game (`.iso` hoặc `.exe`). N
 
 Docker Container chính là việc bạn "nhấp đúp" vào file Image để chạy nó. Nó là một tiến trình đang hoạt động độc lập trên máy của bạn.
 
-*   **Lệnh chạy:**
+*   **Lệnh chạy (Có kèm bảo mật):**
     ```bash
-    docker run -d -p 8080:8080 --name backend-api trantrungviethoang/e-commerce-backend:v1.0
+    docker run -d -p 8080:8080 \
+      --name backend-api \
+      -e DB_USERNAME=sa \
+      -e DB_PASSWORD=MatKhauThatCủaBạn \
+      trantrungviethoang/e-commerce-backend:v1.0
     ```
 *   **Giải thích các cờ lệnh (Flags):**
-    *   `-d`: (Detached) Cho phép container chạy ngầm, không chiếm dụng Terminal của bạn.
-    *   `-p 8080:8080`: (Port mapping). Port `8080` bên trái là Port máy thật của bạn. Port `8080` bên phải là Port của Container (được Expo ở Bước 1). Lệnh này nối thông 2 máy với nhau. Với Frontend chạy Nginx, bạn có thể ánh xạ: `-p 3000:80`.
-    *   `--name backend-api`: Đặt cho Container một cái tên dễ nhớ. Nếu không đặt, Docker sẽ chế ra tên ngẫu nhiên rất dài.
+    *   `-d`: (Detached) Cho phép container chạy ngầm.
+    *   `-p 8080:8080`: Link cổng máy thật và container.
+    *   `-e`: (Environment) Truyền biến môi trường vào container (Rất quan trọng để kết nối DB).
+    *   `--name backend-api`: Đặt tên dễ nhớ.
 *   **Giám sát:**
-    *   Gõ `docker ps` để xem ứng dụng có thực sự đang chạy không.
-    *   Gõ `docker logs backend-api` để xem nhật ký in ra (VD: Console log, Spring Logo...).
-    *   Truy cập `http://localhost:8080/api/test/hello` trên trình duyệt để tận hưởng thành quả.
+    *   Gõ `docker ps` để xem trạng thái.
+    *   Gõ `docker logs backend-api` để xem nhật ký.
+    *   Truy cập `http://localhost:8080/api/test/hello`.
 
 ---
 

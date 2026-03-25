@@ -31,10 +31,14 @@ e_commerce_mini/                  <-- [KHO GỐC] Chỉ chứa cấu hình chung
 - Đội Backend: Trong IntelliJ, chọn **File -> Open -> Trỏ vào thư mục `e-commerce-backend`**.
 - Đội Frontend: Trong VS Code, mở thư mục `e-commerce-frontend`.
 
-### 2.3. Cấu hình file Môi trường (Environment)
-Mỗi máy chủ của các thành viên sẽ có Pass SQL Server khác nhau. 
-- **Backend:** copy file `application.yml` (hoặc `application-dev.yml`) và đổi `password: "Pass_SQL_của_bạn"`. Chú ý file này ĐÃ BỊ CHẶN BỞI `.gitignore` nên các bạn tự do sửa pass trên máy mình mà không sợ ảnh hưởng tới máy bạn khác.
-- **Frontend:** Tạo file `.env` từ `.env.example` và thiết lập `VITE_API_URL=http://localhost:8080/api`. (Lưu ý: Dùng tiền tố **VITE_** instead of **REACT_APP_**).
+### 2.3. Cấu hình file Môi trường (Environment) 🛡️
+Để bảo vệ mật khẩu SQL Server không bị lộ lên GitHub, chúng ta dùng **Biến môi trường**:
+- **Tại máy cá nhân:** 
+  1. Thư mục `e-commerce-backend` đã có file `.env.example`. 
+  2. Bạn hãy copy nó thành file **`.env`** (file này đã được chặn trong `.gitignore`).
+  3. Mở file `.env` và điền mật khẩu `sa` của máy bạn vào.
+- **Tại IDE (VS Code/IntelliJ):** Xem hướng dẫn chi tiết ở Phần 9 để biết cách nạp biến `DB_PASSWORD` khi chạy dự án.
+- **Frontend:** Tạo file `.env` từ `.env.example` và thiết lập `VITE_API_URL=http://localhost:8080/api`.
 
 ---
 
@@ -128,10 +132,25 @@ Với nhóm đông (7 người), xác suất xung đột là rất cao. Trước
 Sau khi đã thiết lập xong DB và Môi trường, đây là cách để bạn chạy hệ thống lên:
 
 ### 9.1. Chạy Backend (Spring Boot)
-1. **Mở IntelliJ IDEA:** Trỏ thẳng vào thư mục `e-commerce-backend`.
-2. **Đợi Maven tải:** Nhìn góc dưới bên phải, đợi cho tới khi thanh tiến trình (Indexing/Downloading) biến mất.
-3. **Run Application:** Tìm file `src/main/java/com/ecommerce/ECommerceApplication.java`, click chuột phải chọn **Run 'ECommerceApplication.main()'**.
-4. **Kiểm tra:** Mở trình duyệt gõ: `http://localhost:8080/api/test/hello`. Nếu hiện dòng chữ *"Backend Spring Boot đã sẵn sàng!"* là thành công.
+Bạn có 2 cách để chạy Backend mà không làm lộ mật khẩu:
+
+**Cách A: Dùng Terminal (Khuyên dùng)**
+1. Mở Terminal tại thư mục `e-commerce-backend`.
+2. Chạy lệnh (Thay `Mật_Khẩu_Của_Bạn` thành pass thật):
+   - *PowerShell:* `$env:DB_USERNAME="sa"; $env:DB_PASSWORD="Mật_Khẩu_Của_Bạn"; mvn spring-boot:run`
+   - *CMD:* `set DB_USERNAME=sa && set DB_PASSWORD=Mật_Khẩu_Của_Bạn && mvn spring-boot:run`
+
+**Cách B: Dùng VS Code Launch Config**
+1. Mở file `.vscode/launch.json` và thêm cấu hình:
+   ```json
+   "env": {
+       "DB_USERNAME": "sa",
+       "DB_PASSWORD": "Mật_Khẩu_Của_Bạn"
+   }
+   ```
+2. Bấm F5 hoặc dùng Spring Boot Dashboard để chạy.
+
+**Kiểm tra:** Mở trình duyệt gõ: `http://localhost:8080/api/test/hello`. Nếu hiện dòng chữ *"Backend Spring Boot đã sẵn sàng!"* là thành công.
 
 ### 9.2. Chạy Frontend (ReactJS + Vite)
 1. **Mở Terminal:** Chuyển vào thư mục `e-commerce-frontend`.
