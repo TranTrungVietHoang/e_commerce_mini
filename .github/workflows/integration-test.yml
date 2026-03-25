@@ -21,10 +21,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Pull latest images
-        run: docker-compose pull
+        run: docker compose pull
 
       - name: Start the system
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for services to start
         run: sleep 15
