@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   # Dịch vụ Backend
@@ -9,6 +8,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    env_file:
+      - ./e-commerce-backend/.env
+    environment:
+      - DB_HOST=sqlserver
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-}
+    depends_on:
+      - sqlserver
     restart: always
 
   # Dịch vụ Frontend
@@ -23,4 +30,20 @@ services:
     depends_on:
       - backend
 
-# Bạn có thể thêm database vào đây nếu muốn chạy cả SQL Server bằng Docker
+  # Dịch vụ Database (SQL Server 2022)
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${DB_PASSWORD}" # Mật khẩu lấy từ file .env
+      MSSQL_PID: "Developer"
+    ports:
+      - "1434:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    restart: always
+
+# Định nghĩa volume để dữ liệu Database không bị mất khi tắt Docker
+volumes:
+  sqlserver_data:
