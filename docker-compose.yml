@@ -8,13 +8,26 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    env_file:
-      - ./e-commerce-backend/.env
+    # env_file:
+    #   - ./e-commerce-backend/.env
     environment:
       - TZ=Asia/Ho_Chi_Minh
       - DB_HOST=sqlserver
+      - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION_ACCESS=${JWT_EXPIRATION_ACCESS}
+      - JWT_EXPIRATION_REFRESH=${JWT_EXPIRATION_REFRESH}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - SEPAY_API_KEY=${SEPAY_API_KEY}
+      - APP_SEPAY_API_KEY=${APP_SEPAY_API_KEY}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
     depends_on:
       - sqlserver
     restart: always
