@@ -11,6 +11,7 @@ services:
     env_file:
       - ./e-commerce-backend/.env
     environment:
+      - TZ=Asia/Ho_Chi_Minh
       - DB_HOST=sqlserver
       - DB_PASSWORD=${DB_PASSWORD}
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-}
