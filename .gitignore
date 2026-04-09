@@ -9,4 +9,14 @@ Thumbs.db
 
 # Any temporary scripts
 *.ps1
-tree.txt
+# Env
+.env
+.env.local
+.env.environment
+
+# Test & Log Files
+*.log
+*.txt
+err.json
+*_test.js
+test_*.js
